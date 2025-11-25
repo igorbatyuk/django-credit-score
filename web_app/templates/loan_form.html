@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Форма займу - Система передбачення займу{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>Форма оцінки займу</h3>
+                <p class="mb-0">Заповніть форму для передбачення схвалення займу</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.Gender.id_for_label }}" class="form-label">Стать</label>
+                            {{ form.Gender }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.Married.id_for_label }}" class="form-label">Одружений/заміжня</label>
+                            {{ form.Married }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.Dependents.id_for_label }}" class="form-label">Кількість залежних</label>
+                            {{ form.Dependents }}
+                            <small class="form-text text-muted">Діти або інші особи, які залежать від вас фінансово</small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.Education.id_for_label }}" class="form-label">Освіта</label>
+                            {{ form.Education }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.Self_Employed.id_for_label }}" class="form-label">Самозайнятий</label>
+                            {{ form.Self_Employed }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.Property_Area.id_for_label }}" class="form-label">Тип нерухомості</label>
+                            {{ form.Property_Area }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.ApplicantIncome.id_for_label }}" class="form-label">Дохід заявника (₴)</label>
+                            {{ form.ApplicantIncome }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.CoapplicantIncome.id_for_label }}" class="form-label">Дохід співзаявника (₴)</label>
+                            {{ form.CoapplicantIncome }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.LoanAmount.id_for_label }}" class="form-label">Сума займу (₴)</label>
+                            {{ form.LoanAmount }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.Loan_Amount_Term.id_for_label }}" class="form-label">Термін займу (днів)</label>
+                            {{ form.Loan_Amount_Term }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.Credit_History.id_for_label }}" class="form-label">Кредитна історія</label>
+                            {{ form.Credit_History }}
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Отримати передбачення</button>
+                    </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Вийти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
