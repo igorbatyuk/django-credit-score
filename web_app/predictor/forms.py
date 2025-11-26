@@ -4,28 +4,27 @@ from django import forms
 # форма для реєстрації нового користувача
 # Form - базовий клас Django для форм
 class RegisterForm(forms.Form):
-    # CharField - поле для введення тексту
-    username = forms.CharField(
-        max_length=50,  # максимальна довжина
+    # CharField - поле для введення імені
+    name = forms.CharField(
+        max_length=100,  # максимальна довжина
         # widget визначає як поле буде відображатися в HTML
         # attrs - атрибути HTML елемента (class для Bootstrap стилів, placeholder для підказки)
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ім\'я користувача'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ім\'я'})
+    )
+    email = forms.EmailField(
+        required=True,  # поле обов'язкове
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
     )
     password = forms.CharField(
         max_length=100,
         # PasswordInput приховує введений текст (показує крапки)
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
     )
-    email = forms.EmailField(
-        required=False,  # поле необов'язкове
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email (необов\'язково)'})
-    )
 
 # форма для входу користувача
 class LoginForm(forms.Form):
-    username = forms.CharField(
-        max_length=50,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ім\'я користувача'})
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
     )
     password = forms.CharField(
         max_length=100,

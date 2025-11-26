@@ -6,9 +6,9 @@ from .models import User  # імпортуємо нашу модель
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     # list_display - які поля показувати в списку користувачів
-    list_display = ('username', 'email', 'created_at')
+    list_display = ('id', 'name', 'email')
     # search_fields - по яких полях можна шукати
-    search_fields = ('username', 'email')
+    search_fields = ('name', 'email')
 
 
 

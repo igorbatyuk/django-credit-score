@@ -41,21 +41,21 @@ def register(request):
         form = RegisterForm(request.POST)  # створюємо форму з даними які прийшли
         if form.is_valid():  # перевіряємо чи форма валідна (всі поля заповнені правильно)
             # отримуємо дані з форми
-            username = form.cleaned_data['username']  # cleaned_data - це вже перевірені та очищені дані
+            name = form.cleaned_data['name']  # cleaned_data - це вже перевірені та очищені дані
+            email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            email = form.cleaned_data.get('email', '')  # get() бо email необов'язковий
             
-            # перевіряємо чи вже існує користувач з таким ім'ям
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Користувач з таким ім\'ям вже існує!')
+            # перевіряємо чи вже існує користувач з таким email
+            if User.objects.filter(email=email).exists():
+                messages.error(request, 'Користувач з таким email вже існує!')
                 return render(request, 'register.html', {'form': form})
             
             # якщо все ок, створюємо нового користувача в базі даних
             # увага: пароль не хешується, бо це навчальний проєкт (в реальному проєкті треба хешувати!)
             user = User.objects.create(
-                username=username,
-                password=password,
-                email=email
+                name=name,
+                email=email,
+                password=password
             )
             messages.success(request, 'Реєстрація успішна! Тепер ви можете увійти.')
             return redirect('login')  # перенаправляємо на сторінку входу
@@ -69,21 +69,21 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             
             # пробуємо знайти користувача в базі даних
             try:
-                user = User.objects.get(username=username, password=password)
+                user = User.objects.get(email=email, password=password)
                 # якщо знайшли, зберігаємо інформацію про користувача в сесії
                 # сесія - це спосіб зберігати дані між запитами (як cookies)
                 request.session['user_id'] = user.id  # зберігаємо ID користувача
-                request.session['username'] = user.username  # зберігаємо ім'я
-                messages.success(request, f'Вітаємо, {username}!')
+                request.session['name'] = user.name  # зберігаємо ім'я
+                messages.success(request, f'Вітаємо, {user.name}!')
                 return redirect('predict')  # перенаправляємо на сторінку передбачення
             except User.DoesNotExist:
                 # якщо користувача не знайдено, показуємо помилку
-                messages.error(request, 'Невірне ім\'я користувача або пароль!')
+                messages.error(request, 'Невірний email або пароль!')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
