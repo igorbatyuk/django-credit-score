@@ -1,105 +1,104 @@
-# Система передбачення схвалення займу
+# Loan Approval Prediction System
 
-Веб-застосунок на Django який використовує машинне навчання щоб передбачити чи схвалять займ чи ні на основі даних людини.
+A Django web application that uses machine learning to predict whether a loan will be approved or not based on a person's data.
 
-## Що це таке
+## What is this
 
-Це мій фінальний проєкт. Він складається з двох частин:
+This is my final project. It consists of two parts:
 
-1. Data Science частина - тут я аналізував дані та навчав модель
-2. Django веб-застосунок - тут користувачі можуть вводити дані і отримувати результат
+1. Data Science part - here I analyzed data and trained the model
+2. Django web application - here users can enter data and get results
 
-## Структура проєкту
+## Project Structure
 
 ```
 16/
     data_science/
-        loan_prediction_analysis.ipynb    # мій notebook з аналізом
-        loan_model.pkl                     # навчена модель (створюється після запуску notebook)
-        feature_columns.pkl                # список стовпців (тоже створюється)
-        loan_data.csv                      # дані для навчання
+        loan_prediction_analysis.ipynb    # my analysis notebook
+        loan_model.pkl                     # trained model (created after running notebook)
+        feature_columns.pkl                # column list (also created)
+        loan_data.csv                      # training data
     
     web_app/
-        loan_app/                         # основний Django проєкт
+        loan_app/                         # main Django project
             settings.py
             urls.py
             ...
-        predictor/                        # мій додаток
+        predictor/                        # my application
             models.py
             views.py
             forms.py
             urls.py
             ...
-        templates/                         # HTML файли
+        templates/                         # HTML files
             base.html
             login.html
             register.html
             loan_form.html
             result.html
         manage.py
-        db.sqlite3                         # база даних (створюється автоматично)
-        static/                            # папка для статичних файлів (CSS, JS)
+        db.sqlite3                         # database (created automatically)
+        static/                            # folder for static files (CSS, JS)
     
-    README.md                              # загальний опис проєкту
-    requirements.txt                       # список бібліотек
-    ІНСТРУКЦІЯ_ЗАПУСКУ.md                 # детальна інструкція
+    README.md                              # general project description
+    requirements.txt                       # list of libraries
+    ІНСТРУКЦІЯ_ЗАПУСКУ.md                 # detailed instructions
 ```
 
-## Як користуватися
+## How to use
 
-1. Спочатку треба зареєструватися - створити акаунт
-2. Потім увійти в систему
-3. Заповнити форму з даними про займ (стать, дохід, сума займу і т.д.)
-4. Натиснути кнопку і побачити результат - схвалено чи ні
+1. First, you need to register - create an account
+2. Then log in to the system
+3. Fill out the form with loan data (gender, income, loan amount, etc.)
+4. Click the button and see the result - approved or not
 
-## Data Science частина
+## Data Science part
 
-В notebook я зробив таке:
+In the notebook I did the following:
 
-1. EDA - подивився на дані, побудував графіки, перевірив пропуски
-2. Cleaning - заповнив пропуски, виправив дані
-3. Encoding - перетворив категоріальні змінні в числа
-4. Scaling - нормалізував числові дані
-5. Modeling - створив Pipeline з RandomForestClassifier
-6. GridSearchCV - підібрав найкращі параметри
-7. Evaluation - перевірив як працює модель
-8. Saving - зберіг модель в pickle файл
+1. EDA - looked at the data, built graphs, checked for missing values
+2. Cleaning - filled missing values, corrected data
+3. Encoding - converted categorical variables to numbers
+4. Scaling - normalized numerical data
+5. Modeling - created a Pipeline with RandomForestClassifier
+6. GridSearchCV - found the best parameters
+7. Evaluation - checked how the model works
+8. Saving - saved the model to a pickle file
 
-## Технології які використав
+## Technologies used
 
-Для Data Science:
-- pandas - для роботи з даними
-- numpy - для обчислень
-- scikit-learn - для машинного навчання
-- matplotlib і seaborn - для графіків
-- jupyter - для notebook
+For Data Science:
+- pandas - for working with data
+- numpy - for calculations
+- scikit-learn - for machine learning
+- matplotlib and seaborn - for graphs
+- jupyter - for notebook
 
-Для веб-застосунку:
+For web application:
 - Django 4.2
-- SQLite - база даних
-- Bootstrap 5 - для красивого вигляду
+- SQLite - database
+- Bootstrap 5 - for beautiful appearance
 - HTML/CSS
 
-## Модель
+## Model
 
-Використав RandomForestClassifier. Спочатку обробляю дані через StandardScaler і OneHotEncoder, потім навчаю модель. Використав GridSearchCV щоб знайти найкращі параметри.
+I used RandomForestClassifier. First, I process the data through StandardScaler and OneHotEncoder, then train the model. I used GridSearchCV to find the best parameters.
 
-Найважливіші ознаки які впливають на результат:
-1. Credit_History - кредитна історія
-2. LoanAmount - сума займу
-3. ApplicantIncome - дохід заявника
-4. CoapplicantIncome - дохід співзаявника
-5. Loan_Amount_Term - термін займу
+Most important features that affect the result:
+1. Credit_History - credit history
+2. LoanAmount - loan amount
+3. ApplicantIncome - applicant income
+4. CoapplicantIncome - co-applicant income
+5. Loan_Amount_Term - loan term
 
-
-## Можливі покращення
-Можна було б ще додати:
-- Більше моделей для порівняння
-- Кращі графіки в веб-інтерфейсі
-- Історію передбачень для кожного користувача
+## Possible improvements
+Could add:
+- More models for comparison
+- Better graphs in the web interface
+- Prediction history for each user
 - API
-- Кращий дизайн
-- Тести
-- Хешувати паролі
-- Використовувати HTTPS
-- Додати захист від атак
+- Better design
+- Tests
+- Hash passwords
+- Use HTTPS
+- Add protection against attacks
